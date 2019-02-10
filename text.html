@@ -18,6 +18,23 @@
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>  
   $(function () {
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+    var userID = getCookie("messageUserId");
+
     var socket = io.connect("http://209.97.175.99:3000");
     $('form').submit(function(e){
       e.preventDefault(); // prevents page reloading
@@ -28,8 +45,10 @@
     });
     socket.on('chat message', function(msg){
       console.log( msg);
-      var real = msg.text;
-      $('#messages').append($('<li>').text(real));
+      if( msg.userId == userID){
+        var real = msg.text;
+        $('#messages').append($('<li>').text(real));
+      }
     });
   });
 </script>
