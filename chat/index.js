@@ -9,8 +9,12 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-    console.log(msg);
+  	if( msg.userId ){
+	    io.emit('chat message : ' + msg.userId, msg);
+  	} else{
+	    io.emit('chat message', msg);
+  	}
+    // console.log(msg);
   });
 });
 

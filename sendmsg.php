@@ -13,8 +13,6 @@ if( count($argv) > 2){
 		$message .= $argv[$i] . " ";
 	}
 	$client->emit('chat message', ['type' => 'notification', 'userId' => $userId, 'text' => $message]);
-} else{
-	$client->emit('chat message', ['type' => 'notification', 'userId' => 0, 'text' => 'Hello There!']);
 }
 $client->close();
 

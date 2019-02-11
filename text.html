@@ -43,12 +43,12 @@
       $('#m').val('');
       return false;
     });
-    socket.on('chat message', function(msg){
+    socket.on('chat message : ' + userID, function(msg){
       console.log( msg);
-      if( msg.userId == userID){
+      // if( msg.userId == userID){
         var real = msg.text;
         $('#messages').append($('<li>').text(real));
-      }
+      // }
     });
   });
 </script>
